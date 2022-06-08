@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA Compatible" content="IE-edge" />
+    <meta name="view port" content="width-device-width" , initial-scale="1.0" />
+    <title>Usergame History</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <a href="/view/logout" class="btn btn-success m-3"> logout </a>
+    <table class="table m-3">
+      <thead>
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Id User</th>
+          <th scope="col">game_tittle</th>
+          <th scope="col">score</th>
+          <th scope="col">level</th>
+          <th scope="col">createAt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (usergameshistory.length > 0) { %> <%
+        usergameshistory.forEach((user_games_history,index)=> { %>
+        <tr>
+          <th scope="row">1</th>
+          <th scope="row"><%= user_games_history.id_user %></th>
+          <td><%= user_games_history.game_tittle %></td>
+          <td><%= user_games_history.score %></td>
+          <td><%= user_games_history.level %></td>
+          <td>
+            <%= moment(user_games_history.createdAt).format('Do MMMM, YYYY') %>
+          </td>
+        </tr>
+        <% }) %> <% } else { %>
+        <tr>
+          <td class="text-center" colspan="7">No Data!</td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"
+  ></script>
+</html>

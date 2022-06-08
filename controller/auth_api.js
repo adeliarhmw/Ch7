@@ -19,12 +19,17 @@ module.exports = {
       const user = await user_game.create({
         username,
         password: encryptedPassword,
+        role_id: req.body.role_id ? req.body.role_id : 2,
       });
 
       // Create token
-      const token = jwt.sign({ id_user: user.id_user }, process.env.TOKEN_KEY, {
-        expiresIn: "15m",
-      });
+      const token = jwt.sign(
+        { id_user: user.id_user, username, role_id: user.role_id },
+        process.env.TOKEN_KEY,
+        {
+          expiresIn: "15m",
+        }
+      );
       // save user token
       user.token = token;
 
@@ -59,7 +64,7 @@ module.exports = {
       if (user && (await bcrypt.compare(password, user.password))) {
         // Create token
         const token = jwt.sign(
-          { id_user: user.id_user, username },
+          { id_user: user.id_user, username, role_id: user.role_id },
           process.env.TOKEN_KEY,
           {
             expiresIn: "15m",

@@ -16,7 +16,7 @@
   </head>
   <body>
     <h2 class="m-3">Create User Game</h2>
-    <form action="/view/createuser_game_views" method="post" class="m-3">
+    <form action="/view/createuser_game_views" method="post" enctype="multipart/form-data" class="m-3">
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
         <input
@@ -36,7 +36,32 @@
           name="password"
           required
         />
+        <div class="mb-3">
+          <label for="foto_profil" class="form-label">Foto Profil</label>
+          <input
+            type="file"
+            class="form-control"
+            name="foto_profil"
+            required
+          />
+          <div class="mb-3">
+            <label for="video" class="form-label">Video</label>
+            <input
+              type="file"
+              class="form-control"
+              name="video"
+              required
+            />
       </div>
+      <div class="mb-3">
+        <label for="username" class="form-label">Role ID</label>
+        <input
+          type="number"
+          class="form-control"
+          id="role_id"
+          name="role_id"
+          required
+        />
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </body>

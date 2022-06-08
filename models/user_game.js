@@ -10,6 +10,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.user_game, {
+        foreignKey: "role_id",
+        as: "user_game_role",
+      });
+      this.hasMany(models.user_game, {
+        foreignKey: "id_user",
+        as: "user_game_history",
+      });
     }
   }
   user_game.init(
@@ -51,10 +59,19 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-
       token: {
         type: DataTypes.TEXT,
         allowNull: true,
+      },
+      foto_profil: {
+        type: DataTypes.TEXT,
+      },
+      video: {
+        type: DataTypes.TEXT,
+      },
+      role_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
     {

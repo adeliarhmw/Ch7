@@ -11,12 +11,28 @@ module.exports = {
       username: {
         type: Sequelize.TEXT,
       },
+      foto_profil: {
+        type: Sequelize.TEXT,
+      },
+      video: {
+        type: Sequelize.TEXT,
+      },
       password: {
         type: Sequelize.TEXT,
       },
       token: {
         type: Sequelize.TEXT,
         allowNull: true,
+      },
+      role_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "roles",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       createdAt: {
         allowNull: false,

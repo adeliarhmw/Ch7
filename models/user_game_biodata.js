@@ -23,9 +23,16 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         allowNull: false,
       },
-      name_user: DataTypes.TEXT,
-      email: DataTypes.TEXT,
-      gender: DataTypes.TEXT,
+      name_user: {
+        type: DataTypes.TEXT,
+      },
+      email: {
+        type: DataTypes.TEXT,
+      },
+      gender: {
+        type: DataTypes.TEXT,
+      },
+      id_user: DataTypes.INTEGER,
     },
     {
       sequelize,

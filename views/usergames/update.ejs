@@ -17,7 +17,7 @@
       Update User Game
     </a>
     <h2 class="m-3">Update user</h2>
-    <form action="/view/updateformuser/<%= user_game.id_user %>" method="POST" class="m-3">
+    <form action="/view/updateformuser/<%= user_game.id_user %>" method="POST" enctype="multipart/form-data" class="m-3">
       <div class="mb-3">
         <label for="username" class="form-label">username</label>
         <input type="text" class="form-control" id="username" name="username" required value=<%= user_game.username %> />
@@ -25,6 +25,22 @@
       <div class="mb-3">
         <label for="password" class="form-label">new password</label>
         <input type="password" class="form-control" id="password" name="password" required/>
+        <div class="mb-3">
+          <label for="foto_profil" class="form-label">Foto Profil</label>
+          <input
+            type="file"
+            class="form-control"
+            name="foto_profil"
+            required
+          />
+          <div class="mb-3">
+            <label for="video" class="form-label">Video</label>
+            <input
+              type="file"
+              class="form-control"
+              name="video"
+              required
+            />
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </body>

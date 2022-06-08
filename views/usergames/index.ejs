@@ -28,6 +28,8 @@
       <thead>
         <tr>
           <th scope="col">No</th>
+          <th scope="col">Foto Profile</th>
+          <th scope="col">Video</th>
           <th scope="col">username</th>
           <th scope="col">password</th>
           <th scope="col">createAt</th>
@@ -38,6 +40,30 @@
         <% usergames.forEach((user_game,index)=> { %>
         <tr>
           <th scope="row"><%= index+1 %></th>
+          <td>
+            <img
+              width="100"
+              height="100"
+              src="/uploads/images/<%= user_game.foto_profil%>"
+              alt="Kosong Nih"
+            />
+          </td>
+          <td>
+            <video width="320" height="240" controls>
+              <source
+                src="/uploads/video/<%= user_game.video %>"
+                type="video/mp4"
+              />
+              <source
+                src="/uploads/video/<%= user_game.video %>"
+                type="video/webm"
+              />
+              <source
+                src="/uploads/video/<%= user_game.video %>"
+                type="video/ogg"
+              />
+            </video>
+          </td>
           <td><%= user_game.username %></td>
           <td><%= user_game.password %></td>
           <td><%= moment(user_game.createdAt).format('Do MMMM, YYYY') %></td>

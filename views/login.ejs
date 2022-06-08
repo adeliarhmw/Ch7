@@ -16,7 +16,9 @@
   </head>
   <body>
     <h2 class="m-3">Login User Game</h2>
-
+    <% if (messages.error) { %>
+    <p class="text-center" style="color: red"><%= messages.error %></p>
+    <% } %>
     <form action="/login" method="post" class="m-3">
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>

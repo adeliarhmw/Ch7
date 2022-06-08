@@ -2,10 +2,12 @@ const { user_game_history } = require("../models");
 const moment = require("moment");
 
 module.exports = {
-  getuser_game_history_views: (req, res) => {
+  getuser_game_history_admin_views: (req, res) => {
     user_game_history
       .findAll({
-        attributes: ["id_history", "game_tittle", "score", "level", "id_user"],
+        where: {
+          id_user: req.user.id_user,
+        },
       })
       .then((result) => {
         if (result.length > 0) {
@@ -17,6 +19,31 @@ module.exports = {
         } else {
           // res.status(404).json({ message: "User Game history Not Found", data: result });
           res.render("usergameshistory/index", {
+            usergameshistory: result,
+            moment,
+          });
+        }
+      })
+      .catch((err) => {
+        //res.status(500).json({ message: "Failed Get All User Game history", err: err.message,});
+        res.render("error", { status: res.status(500), err: err.message });
+      });
+  },
+  getuser_game_history_user_views: (req, res) => {
+    user_game_history
+      .findAll({
+        attributes: ["id_history", "game_tittle", "score", "level", "id_user"],
+      })
+      .then((result) => {
+        if (result.length > 0) {
+          //res.status(200).json({ message: "Valid Get All User Game History", data: result });
+          res.render("usergameshistory/index_user", {
+            usergameshistory: result,
+            moment,
+          });
+        } else {
+          // res.status(404).json({ message: "User Game history Not Found", data: result });
+          res.render("usergameshistory/index_user", {
             usergameshistory: result,
             moment,
           });

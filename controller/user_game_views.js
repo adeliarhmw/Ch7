@@ -3,17 +3,9 @@ const moment = require("moment");
 const bcrypt = require("bcrypt");
 
 module.exports = {
-  getuser_game_views: (req, res) => {
+  getuser_game_admin_views: (req, res) => {
     user_game
-      .findAll({
-        attributes: [
-          "id_user",
-          "username",
-          "password",
-          "createdAt",
-          "updatedAt",
-        ],
-      })
+      .findAll()
       .then((result) => {
         if (result.length > 0) {
           // res.status(200).json({ message: 'Berhasil Get All User Game', result });
@@ -28,19 +20,33 @@ module.exports = {
         res.render("error", { status: res.status(500), err: err.message });
       });
   },
+  getuser_game_user_views: (req, res) => {
+    user_game
+      .findOne({
+        where: {
+          id_user: req.user.id_user,
+        },
+      })
+      .then((result) => {
+        if (result) {
+          // res.status(200).json({ message: 'Berhasil Get All User Game', result });
+          res.render("usergames/index_user", { user_game: result, moment });
+        } else {
+          // res.status(404).json({ message: 'User Game Tidak di temukan', result });
+          res.render("usergames/index_user", { user_game: result, moment });
+        }
+      })
+      .catch((err) => {
+        //res.status(500).json({ message: "Gagal Get All User Game", err: err.message });
+        res.render("error", { status: res.status(500), err: err.message });
+      });
+  },
   getuser_gameById_views: (req, res) => {
     user_game
       .findOne({
         where: {
           id_user: req.params.id,
         },
-        attributes: [
-          "id_user",
-          "username",
-          "password",
-          "createdAt",
-          "updatedAt",
-        ],
       })
       .then((result) => {
         if (result) {
@@ -67,11 +73,15 @@ module.exports = {
     res.render("usergames/create");
   },
   createuser_game_views: async (req, res) => {
+    const { username, password, role_id } = req.body;
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     user_game
       .create({
         username: req.body.username,
         password: hashedPassword,
+        foto_profil: req.files[0].filename,
+        video: req.files[1].filename,
+        role_id,
       })
       .then((result) => {
         res.redirect("/view/usergames");
@@ -83,13 +93,16 @@ module.exports = {
   },
   update_user_game_views: async (req, res) => {
     // req.method = req.body._method;
-    const { username, password } = req.body;
+    const { username, password, role_id } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     user_game
       .update(
         {
           username: username,
           password: hashedPassword,
+          foto_profil: req.files[0].filename,
+          video: req.files[1].filename,
+          role_id,
         },
         {
           where: {

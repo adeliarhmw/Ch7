@@ -1,5 +1,6 @@
 const { user_game } = require("./models");
-const passport = require("passport"),
+const passport = require("passport");
+const bcrypt = require("bcrypt"),
   LocalStrategy = require("passport-local").Strategy;
 
 passport.use(
@@ -9,7 +10,7 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Incorrect username." });
       }
-      const passVal = user.validPassword(password);
+      const passVal = await bcrypt.compare(password, user.password);
       if (!passVal) {
         return done(null, false, { message: "Incorrect password." });
       }
